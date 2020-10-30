@@ -2,9 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledDoorContainer = styled.div`
+  position: relative;
   /* z-index: -3; */
-  height: 400px;
-  width: 250px;
+  /* height: 400px;
+  width: 250px; */
+  height: 100%;
+  width: 100%;
   background-color: #f7ede2;
   border: 3px solid #f6bd60;
   display: flex;
@@ -16,19 +19,26 @@ const StyledDoorContainer = styled.div`
 const BackgroundImage = styled.img`
   position: absolute;
   z-index: 1;
-  height: 400px;
-  width: 250px;
+  /* height: 400px;
+  width: 250px; */
+  height: 100%;
+  width: 100%;
 `;
 
 const TextContainer = styled.div`
   position: absolute;
+  top: 0;
+  left: 15px;
   z-index: 3;
-  height: 400px;
-  width: 250px;
+  /* height: 400px;
+  width: 250px; */
+  /* height: 100%;
+  width: 100%; */
   display: flex;
   align-items: center;
   justify-content: center;
   p {
+    color: #5c7457;
     font-size: 24px;
   }
 `;
@@ -63,7 +73,7 @@ export const Door = ({ open, setOpen, backgroundImage, text }) => {
   };
   return (
     <StyledDoorContainer onClick={toggleOpen}>
-      <BackgroundImage src={backgroundImage} />
+      {/* <BackgroundImage src={backgroundImage} /> */}
       <TextContainer>
         <p>{text}</p>
       </TextContainer>

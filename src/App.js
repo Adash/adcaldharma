@@ -141,13 +141,13 @@ function App() {
       /> */}
       <CalendarGrid>
         {quotesArray.map((quote, index) => (
-          <Day
-            className={`day${index + 1} ${
-              clickedArray[index] ? 'clicked' : ''
-            }`}
-            onClick={() => toggleDay(index)}
-          >
-            <p>{quote}</p>
+          <Day key={quote} className={`day${index + 1}`}>
+            <Door
+              open={clickedArray[index]}
+              setOpen={() => toggleDay(index)}
+              text={quote}
+              // backgroundImage={Penguining}
+            />
           </Day>
         ))}
       </CalendarGrid>
