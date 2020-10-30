@@ -28,7 +28,10 @@ const BackgroundImage = styled.img`
 const TextContainer = styled.div`
   position: absolute;
   top: 0;
-  left: 15px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
   z-index: 3;
   /* height: 400px;
   width: 250px; */
