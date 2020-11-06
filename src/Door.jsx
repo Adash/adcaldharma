@@ -58,7 +58,7 @@ const LeftDoorWing = styled(DoorWing)`
   transform-origin: left;
   transform: ${({ open }) =>
     open
-      ? 'perspective(1200px) translateZ(0px) translateX(0px) translateY(0px) rotateY(-125deg)'
+      ? 'perspective(1200px) translateZ(0px) translateX(0px) translateY(0px) rotateY(-100deg)'
       : 'null'};
 `;
 
@@ -66,7 +66,7 @@ const RightDoorWing = styled(DoorWing)`
   transform-origin: right;
   transform: ${({ open }) =>
     open
-      ? 'perspective(1200px) translateZ(0px) translateX(0px) translateY(0px) rotateY(125deg)'
+      ? 'perspective(1200px) translateZ(0px) translateX(0px) translateY(0px) rotateY(100deg)'
       : 'null'};
 `;
 

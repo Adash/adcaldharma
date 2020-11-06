@@ -5,8 +5,10 @@ import Penguining from './penguining.jpg';
 import { quotesArray } from './quotesArray';
 
 const AppWrapper = styled.div`
+  --grid-spacing: 65px;
   height: 100vh;
   width: 100vw;
+  padding: var(--grid-spacing);
   background-color: #84a59d;
   display: flex;
   flex-direction: column;
@@ -33,10 +35,12 @@ const CalendarGrid = styled.div`
   // adjust theese later
   height: 100%;
   width: 100%;
+  /* height: auto;
+  width: auto; */
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-  gap: 2px 2px;
+  gap: var(--grid-spacing) var(--grid-spacing);
   grid-template-areas:
     'day1 day2 day3 day4 day5'
     'day6 day7 day8 day9 day10'
