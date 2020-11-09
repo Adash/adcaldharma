@@ -3,13 +3,19 @@ import styled from 'styled-components';
 import { Door } from './Door';
 import Penguining from './penguining.jpg';
 import { quotesArray } from './quotesArray';
+import mainBackgroundImage from './cold-firs-forest.jpg';
+
+const today = new Date().getDate();
 
 const AppWrapper = styled.div`
-  --grid-spacing: 65px;
-  height: 100vh;
-  width: 100vw;
-  padding: var(--grid-spacing);
-  background-color: #84a59d;
+  --grid-spacing: 40px;
+  /* height: 100vh;
+  width: 100vw; */
+  height: 760px;
+  width: 835px;
+  /* background-color: var(--background-color); */
+  background-image: url(${mainBackgroundImage});
+  background-size: cover;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -21,7 +27,6 @@ const Day = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #f5cac3;
   border-radius: 3px;
   transition: all 0.4s ease-out;
   cursor: pointer;
@@ -33,8 +38,8 @@ const Day = styled.div`
 
 const CalendarGrid = styled.div`
   // adjust theese later
-  height: 100%;
-  width: 100%;
+  height: 90%;
+  width: 90%;
   /* height: auto;
   width: auto; */
   display: grid;
@@ -125,10 +130,12 @@ const CalendarGrid = styled.div`
 `;
 
 function App() {
-  const [open, setOpen] = useState(false);
   const [clickedArray, setClickedArray] = useState(new Array(24));
 
   const toggleDay = (day) => {
+    if (today < 1 + day) {
+      return;
+    }
     let newArray = [...clickedArray];
     newArray[day] = !newArray[day];
     setClickedArray(newArray);
@@ -136,20 +143,15 @@ function App() {
 
   return (
     <AppWrapper>
-      {/* <h1>Click on the door</h1>
-      <Door
-        open={open}
-        setOpen={setOpen}
-        backgroundImage={Penguining}
-        text="happy penguins"
-      /> */}
       <CalendarGrid>
         {quotesArray.map((quote, index) => (
           <Day key={quote} className={`day${index + 1}`}>
             <Door
+              day={index + 1}
               open={clickedArray[index]}
               setOpen={() => toggleDay(index)}
               text={quote}
+              isUnlocked={today < 1 + index}
               // backgroundImage={Penguining}
             />
           </Day>
