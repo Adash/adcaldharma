@@ -2,11 +2,15 @@ import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import mainBackgroundImage from './cold-firs-forest.jpg';
 
+const initialCoordinates = {
+  leftDoorLeft: 40.75,
+  leftDoorTop: 34,
+  rightDoorLeft: 96,
+  rightDoorTop: 34,
+};
+
 const StyledDoorContainer = styled.div`
   position: relative;
-  /* z-index: -3; */
-  /* height: 400px;
-  width: 250px; */
   height: 100%;
   width: 100%;
   background-color: #f7ede2;
@@ -16,18 +20,13 @@ const StyledDoorContainer = styled.div`
   justify-content: stretch;
   align-items: stretch;
   .front {
-    /* position: fixed;
-    height: 280px;
-    width: 280px; */
-    /* top: 80px;
-    bottom: 80px;
-    left: 80px;
-    right: 80px; */
     z-index: 118;
     border-radius: 5px;
     padding: 10px;
+    font-size: 8px;
+    color: white;
     background-color: var(--yallow-base);
-    transform: scale(4, 4);
+    transform: scale(4);
   }
 `;
 
@@ -48,16 +47,11 @@ const TextContainer = styled.div`
   right: 0;
   margin: auto;
   z-index: 3;
-  /* height: 400px;
-  width: 250px; */
-  /* height: 100%;
-  width: 100%; */
   display: flex;
   align-items: center;
   justify-content: center;
   transition: transform 1s ease-in-out;
-
-  p {
+  transform: ${{}} p {
     color: #5c7457;
     font-size: 8px;
   }
@@ -65,7 +59,6 @@ const TextContainer = styled.div`
 
 const DoorWing = styled.div`
   z-index: 108;
-  /* background-color: #f28482; */
   width: 50%;
   border: 1px solid var(--green-dark);
   transform-style: preserve-3d;
@@ -102,19 +95,16 @@ const OutsideDoorWing = styled.div`
   background-image: url(${mainBackgroundImage});
   background-position: ${(props) =>
     `-${props.elementLeft}px -${props.elementTop}px`};
-  /* background-color: ${(props) =>
-    props.isUnlocked ? 'var(--red-base)' : 'var(--green-base)'}; */
 `;
 
 const InsideDoorWing = styled.div`
   transform: rotateY(180deg);
-  /* backface-visibility: hidden; */
+  backface-visibility: hidden;
   position: absolute;
   top: 0px;
   height: 100%;
   width: 100%;
-  background-color: ${(props) =>
-    props.isUnlocked ? 'var(--red-base-dark)' : 'var(--green-base-dark)'};
+  background-color: var(--red-base);
 `;
 
 export const Door = ({
@@ -126,21 +116,58 @@ export const Door = ({
   text,
 }) => {
   const [displayText, setDisplayText] = useState(false);
-  const leftDoorRef = useRef();
   const [leftDoorTop, setLeftDoorTop] = useState(0);
   const [leftDoorLeft, setLeftDoorLeft] = useState(0);
-  const rightDoorRef = useRef();
   const [rightDoorTop, setRightDoorTop] = useState(0);
   const [rightDoorLeft, setRightDoorLeft] = useState(0);
 
   useEffect(() => {
-    console.log(leftDoorRef.current.getClientRects()[0].top);
-    console.log(leftDoorRef.current.getClientRects()[0].left);
-    setLeftDoorTop(leftDoorRef.current.getClientRects()[0].top);
-    setLeftDoorLeft(leftDoorRef.current.getClientRects()[0].left);
-    setRightDoorTop(rightDoorRef.current.getClientRects()[0].top);
-    setRightDoorLeft(rightDoorRef.current.getClientRects()[0].left);
-  }, [leftDoorRef, rightDoorRef]);
+    // the 40 is equal to the grid spacing
+    // grid cell is 118/108
+    if (day < 6) {
+      const index = day - 1;
+      setLeftDoorLeft(initialCoordinates.leftDoorLeft + index * (40 + 118));
+      setLeftDoorTop(initialCoordinates.leftDoorTop);
+      setRightDoorLeft(initialCoordinates.rightDoorLeft + index * (40 + 118));
+      setRightDoorTop(initialCoordinates.rightDoorTop);
+    }
+    if (day > 5 && day < 11) {
+      const index = day - 6;
+      setLeftDoorLeft(initialCoordinates.leftDoorLeft + index * (40 + 118));
+      setLeftDoorTop(initialCoordinates.leftDoorTop + 108 + 40);
+      setRightDoorLeft(initialCoordinates.rightDoorLeft + index * (40 + 118));
+      setRightDoorTop(initialCoordinates.rightDoorTop + 108 + 40);
+    }
+    if (day > 10 && day < 16) {
+      const index = day - 11;
+      setLeftDoorLeft(initialCoordinates.leftDoorLeft + index * (40 + 118));
+      setLeftDoorTop(initialCoordinates.leftDoorTop + 2 * (108 + 40));
+      setRightDoorLeft(initialCoordinates.rightDoorLeft + index * (40 + 118));
+      setRightDoorTop(initialCoordinates.rightDoorTop + 2 * (108 + 40));
+    }
+    if (day > 15 && day < 20) {
+      const index = day - 16;
+      setLeftDoorLeft(initialCoordinates.leftDoorLeft + index * (40 + 118));
+      setLeftDoorTop(initialCoordinates.leftDoorTop + 3 * (108 + 40));
+      setRightDoorLeft(initialCoordinates.rightDoorLeft + index * (40 + 118));
+      setRightDoorTop(initialCoordinates.rightDoorTop + 3 * (108 + 40));
+    }
+    if (day > 19 && day < 24) {
+      const index = day - 20;
+      setLeftDoorLeft(initialCoordinates.leftDoorLeft + index * (40 + 118));
+      setLeftDoorTop(initialCoordinates.leftDoorTop + 4 * (108 + 40));
+      setRightDoorLeft(initialCoordinates.rightDoorLeft + index * (40 + 118));
+      setRightDoorTop(initialCoordinates.rightDoorTop + 4 * (108 + 40));
+    }
+    if (day === 24) {
+      const index = 4;
+      setLeftDoorLeft(initialCoordinates.leftDoorLeft + index * (40 + 118));
+      setLeftDoorTop(initialCoordinates.leftDoorTop + 3 * (108 + 40));
+      setRightDoorLeft(initialCoordinates.rightDoorLeft + index * (40 + 118));
+      setRightDoorTop(initialCoordinates.rightDoorTop + 3 * (108 + 40));
+    }
+    console.log(initialCoordinates.leftDoorLeft + 40);
+  }, [day]);
 
   const toggleOpen = () => {
     if (open && !displayText) {
@@ -165,24 +192,22 @@ export const Door = ({
   return (
     <StyledDoorContainer onClick={toggleOpen}>
       {/* <BackgroundImage src={backgroundImage} /> */}
-      <TextContainer className={displayText ? 'none' : ''}>
+      <TextContainer className={displayText ? 'front' : ''}>
         <p>{displayText ? text : day}</p>
       </TextContainer>
       <LeftDoorWing isUnlocked={isUnlocked} open={open}>
         <OutsideDoorWing
           isUnlocked={isUnlocked}
-          ref={leftDoorRef}
-          elementTop={leftDoorTop}
           elementLeft={leftDoorLeft}
+          elementTop={leftDoorTop}
         />
         <InsideDoorWing isUnlocked={isUnlocked} />
       </LeftDoorWing>
       <RightDoorWing isUnlocked={isUnlocked} open={open}>
         <OutsideDoorWing
           isUnlocked={isUnlocked}
-          ref={rightDoorRef}
-          elementTop={rightDoorTop}
           elementLeft={rightDoorLeft}
+          elementTop={rightDoorTop}
         />
         <InsideDoorWing isUnlocked={isUnlocked} />
       </RightDoorWing>
