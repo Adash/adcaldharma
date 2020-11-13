@@ -20,7 +20,7 @@ const StyledDoorContainer = styled.div`
   justify-content: stretch;
   align-items: stretch;
   .front {
-    z-index: 118;
+    z-index: 228;
     border-radius: 5px;
     padding: 10px;
     font-size: 8px;
