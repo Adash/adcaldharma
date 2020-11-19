@@ -133,9 +133,9 @@ function App() {
   const [clickedArray, setClickedArray] = useState(new Array(24));
 
   const toggleDay = (day) => {
-    if (today < 1 + day) {
-      return;
-    }
+    // if (today < 1 + day) {
+    //   return;
+    // }
     let newArray = [...clickedArray];
     newArray[day] = !newArray[day];
     setClickedArray(newArray);
@@ -152,6 +152,7 @@ function App() {
               setOpen={() => toggleDay(index)}
               text={quote}
               isUnlocked={today < 1 + index}
+              // isUnlocked={true} // temporarily unlock all doors
               // backgroundImage={Penguining}
             />
           </Day>

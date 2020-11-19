@@ -26,7 +26,10 @@ const StyledDoorContainer = styled.div`
     font-size: 8px;
     color: white;
     background-color: var(--yallow-base);
-    transform: scale(4);
+    /* transform: scale(4); */
+    transform: scale(4)
+      ${({ leftDoorLeft, leftDoorTop }) =>
+        `translate(${0}px, ${leftDoorTop}px)}`};
   }
 `;
 
@@ -51,7 +54,7 @@ const TextContainer = styled.div`
   align-items: center;
   justify-content: center;
   transition: transform 1s ease-in-out;
-  transform: ${{}} p {
+  p {
     color: #5c7457;
     font-size: 8px;
   }
@@ -120,53 +123,62 @@ export const Door = ({
   const [leftDoorLeft, setLeftDoorLeft] = useState(0);
   const [rightDoorTop, setRightDoorTop] = useState(0);
   const [rightDoorLeft, setRightDoorLeft] = useState(0);
+  const doorRef = useRef();
+  const [textAreaOffset, setTextAreaOffset] = useState([0, 0]);
 
   useEffect(() => {
     // the 40 is equal to the grid spacing
     // grid cell is 118/108
+    var viewportOffset = doorRef.current.getBoundingClientRect();
     if (day < 6) {
       const index = day - 1;
-      setLeftDoorLeft(initialCoordinates.leftDoorLeft + index * (40 + 118));
+      setLeftDoorLeft(initialCoordinates.leftDoorLeft + index * (42 + 118));
       setLeftDoorTop(initialCoordinates.leftDoorTop);
-      setRightDoorLeft(initialCoordinates.rightDoorLeft + index * (40 + 118));
+      setRightDoorLeft(initialCoordinates.rightDoorLeft + index * (42 + 118));
       setRightDoorTop(initialCoordinates.rightDoorTop);
+      setTextAreaOffset([viewportOffset.left, 38]);
     }
     if (day > 5 && day < 11) {
       const index = day - 6;
-      setLeftDoorLeft(initialCoordinates.leftDoorLeft + index * (40 + 118));
-      setLeftDoorTop(initialCoordinates.leftDoorTop + 108 + 40);
-      setRightDoorLeft(initialCoordinates.rightDoorLeft + index * (40 + 118));
-      setRightDoorTop(initialCoordinates.rightDoorTop + 108 + 40);
+      setLeftDoorLeft(initialCoordinates.leftDoorLeft + index * (42 + 118));
+      setLeftDoorTop(initialCoordinates.leftDoorTop + 108 + 38);
+      setRightDoorLeft(initialCoordinates.rightDoorLeft + index * (42 + 118));
+      setRightDoorTop(initialCoordinates.rightDoorTop + 108 + 38);
+      setTextAreaOffset([viewportOffset.left, 38]);
     }
     if (day > 10 && day < 16) {
       const index = day - 11;
-      setLeftDoorLeft(initialCoordinates.leftDoorLeft + index * (40 + 118));
-      setLeftDoorTop(initialCoordinates.leftDoorTop + 2 * (108 + 40));
-      setRightDoorLeft(initialCoordinates.rightDoorLeft + index * (40 + 118));
-      setRightDoorTop(initialCoordinates.rightDoorTop + 2 * (108 + 40));
+      setLeftDoorLeft(initialCoordinates.leftDoorLeft + index * (42 + 118));
+      setLeftDoorTop(initialCoordinates.leftDoorTop + 2 * (108 + 38));
+      setRightDoorLeft(initialCoordinates.rightDoorLeft + index * (42 + 118));
+      setRightDoorTop(initialCoordinates.rightDoorTop + 2 * (108 + 38));
+      setTextAreaOffset([viewportOffset.left, 0]);
     }
     if (day > 15 && day < 20) {
       const index = day - 16;
-      setLeftDoorLeft(initialCoordinates.leftDoorLeft + index * (40 + 118));
-      setLeftDoorTop(initialCoordinates.leftDoorTop + 3 * (108 + 40));
-      setRightDoorLeft(initialCoordinates.rightDoorLeft + index * (40 + 118));
-      setRightDoorTop(initialCoordinates.rightDoorTop + 3 * (108 + 40));
+      setLeftDoorLeft(initialCoordinates.leftDoorLeft + index * (42 + 118));
+      setLeftDoorTop(initialCoordinates.leftDoorTop + 3 * (108 + 38));
+      setRightDoorLeft(initialCoordinates.rightDoorLeft + index * (42 + 118));
+      setRightDoorTop(initialCoordinates.rightDoorTop + 3 * (108 + 38));
+      setTextAreaOffset([viewportOffset.left, -33]);
     }
     if (day > 19 && day < 24) {
       const index = day - 20;
-      setLeftDoorLeft(initialCoordinates.leftDoorLeft + index * (40 + 118));
-      setLeftDoorTop(initialCoordinates.leftDoorTop + 4 * (108 + 40));
-      setRightDoorLeft(initialCoordinates.rightDoorLeft + index * (40 + 118));
-      setRightDoorTop(initialCoordinates.rightDoorTop + 4 * (108 + 40));
+      setLeftDoorLeft(initialCoordinates.leftDoorLeft + index * (42 + 118));
+      setLeftDoorTop(initialCoordinates.leftDoorTop + 4 * (108 + 38));
+      setRightDoorLeft(initialCoordinates.rightDoorLeft + index * (42 + 118));
+      setRightDoorTop(initialCoordinates.rightDoorTop + 4 * (108 + 38));
+      setTextAreaOffset([viewportOffset.left, -74]);
     }
     if (day === 24) {
       const index = 4;
-      setLeftDoorLeft(initialCoordinates.leftDoorLeft + index * (40 + 118));
-      setLeftDoorTop(initialCoordinates.leftDoorTop + 3 * (108 + 40));
-      setRightDoorLeft(initialCoordinates.rightDoorLeft + index * (40 + 118));
-      setRightDoorTop(initialCoordinates.rightDoorTop + 3 * (108 + 40));
+      setLeftDoorLeft(initialCoordinates.leftDoorLeft + index * (42 + 118));
+      setLeftDoorTop(initialCoordinates.leftDoorTop + 3 * (108 + 38));
+      setRightDoorLeft(initialCoordinates.rightDoorLeft + index * (42 + 118));
+      setRightDoorTop(initialCoordinates.rightDoorTop + 3 * (108 + 38));
+      setTextAreaOffset([viewportOffset.left, -74]);
     }
-    console.log(initialCoordinates.leftDoorLeft + 40);
+    console.log(initialCoordinates.leftDoorLeft + 42);
   }, [day]);
 
   const toggleOpen = () => {
@@ -190,7 +202,12 @@ export const Door = ({
   };
 
   return (
-    <StyledDoorContainer onClick={toggleOpen}>
+    <StyledDoorContainer
+      ref={doorRef}
+      onClick={toggleOpen}
+      leftDoorLeft={textAreaOffset[0]}
+      leftDoorTop={textAreaOffset[1]}
+    >
       {/* <BackgroundImage src={backgroundImage} /> */}
       <TextContainer className={displayText ? 'front' : ''}>
         <p>{displayText ? text : day}</p>
